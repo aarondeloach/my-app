@@ -32,6 +32,14 @@ jobs:
             - name: Execute Tests
               run: npm test --if-present
 
+            - name: Generate .env File
+              run: |
+                echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+                echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+                echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+                echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+                echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+
             # Step 6: Build the application (crucial for TypeScript, Next.js, etc.)
             - name: Build Application
               run: npm run build --if-present
@@ -41,7 +49,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            # Example: Triggering a remote server update via SSH
             - name: Deploy Update to Server via SSH
               uses: appleboy/ssh-action@master
               with:
@@ -54,12 +61,3 @@ jobs:
                       npm install
                       npm run build
                       pm2 restart my-app
-
-            # Generate a .env file on the server
-            - name: Generate .env File
-              run: |
-                  echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-                  echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-                  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-                  echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-                  echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
