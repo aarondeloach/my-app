@@ -53,4 +53,4 @@ jobs:
             git pull origin main
             npm install
             npm run build
-            pm2 restart my-app
+            pm2 reload my-app
