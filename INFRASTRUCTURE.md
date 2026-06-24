@@ -12,7 +12,7 @@ Setup EC2 instance with `Amazon Linux 2023`.
 
 Setup the security group to allow HTTP traffic on port 80 and SSH traffic on port 22. (Node runs on port 3000, but we will use Nginx to reverse proxy the traffic from port 80 to port 3000.)
 
-Connect to the EC2 instance using the `instance connect` option to open a terminal session. All commands below will be run in the AWS EC2 terminal session.
+>ℹ️ Connect to the EC2 instance using the `instance connect` option to open a terminal session. All commands below will be run in the AWS EC2 terminal session.
 
 **Update the system**
 
