@@ -32,7 +32,7 @@ sudo dnf update
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
 
->ℹ️ **IMPORTANT!** Close and reopen your terminal to start using nvm.
+>‼️ **IMPORTANT!** Close and reopen your terminal to start using nvm.
 
 **Install the latest LTS (Long Term Support) version of Node.js and npm using nvm:**
 
