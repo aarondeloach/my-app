@@ -22,16 +22,6 @@ cd my-app
 npm install
 ```
 
-## Local Environment
-
-**Generate your `.env.local` file from `.env.template`:**
-
-```bash
-mv .env.template .env.local
-```
-
-**Then edit `.env.local` with your local environment variables.**
-
 ## Local MySQL Database Setup
 
 This assumes you have MySQL installed and running on your local machine. If you don't have MySQL installed, please refer to the [MySQL installation guide](https://dev.mysql.com/doc/refman/8.4/en/installing.html) for your operating system.
@@ -51,7 +41,15 @@ mysql> create database my_app;
 mysql> quit
 ```
 
-**Update your `.env.local` file with the database connection details:**
+## Local Environment
+
+**Generate your `.env.local` file from `.env.template`:**
+
+```bash
+mv .env.template .env.local
+```
+
+**Then edit `.env.local` with your local environment variables.**
 
 ```env
 DB_HOST=localhost
