@@ -12,7 +12,7 @@ This template can be deployed anwhere on any infrastructure that supports MySQL.
 
 **My Setup:** I use AWS EC2 for hosting the application, and AWS RDS for hosting the MySQL database. See [INFRASTRUCTURE.md](INFRASTRUCTURE.md) for instructions on setting up the infrastructure, and [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on deploying the application.
 
-## App Installation
+## Local App Installation
 
 **Clone the repository and install dependencies:**
 
@@ -41,7 +41,7 @@ mysql> create database my_app;
 mysql> quit
 ```
 
-## Local Environment
+## Local Environment Setup
 
 **Generate your `.env.local` file from `.env.template`:**
 
