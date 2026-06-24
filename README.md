@@ -43,13 +43,13 @@ mysql> quit
 
 ## Local Environment Setup
 
-**Generate your `.env.local` file from `.env.template`:**
+**Generate your `.env.development` file from `.env.template`:**
 
 ```bash
-mv .env.template .env.local
+mv .env.template .env.development
 ```
 
-**Then edit `.env.local` with your local environment variables.**
+**Then edit `.env.development` with your local environment variables.**
 
 ```env
 DB_HOST=localhost
@@ -63,7 +63,7 @@ SETUP_USER_EMAIL=your_email_address
 SETUP_USER_PASSWORD=your_password
 ```
 
->ℹ️ Quote values in the `.env.production` file if they contain special characters or spaces. For example, if your password is `P@ssw0rd!`, you should write it as `DB_PASSWORD="P@ssw0rd!"`, or if your name is `John Doe`, you should write it as `SETUP_USER_NAME="John Doe"`.
+>ℹ️ Quote values in the `.env.development` file if they contain special characters or spaces. For example, if your password is `P@ssw0rd!`, you should write it as `DB_PASSWORD="P@ssw0rd!"`, or if your name is `John Doe`, you should write it as `SETUP_USER_NAME="John Doe"`.
 
 
 ## Run the Application Locally
