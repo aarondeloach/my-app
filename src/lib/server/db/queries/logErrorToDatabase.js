@@ -1,5 +1,5 @@
 import { dev } from "$app/environment";
-import { db } from "../../db.js";
+import { db } from "../index.js";
 
 export async function logErrorToDatabase(data) {
     const query = `

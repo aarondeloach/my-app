@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise';
 import { runMigrations } from './migrate.js';
 import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT } from '$env/static/private';
-import { logErrorToDatabase } from "$lib/server/db/queries/core/logErrorToDatabase.js";
+import { logErrorToDatabase } from "$lib/server/db/queries/logErrorToDatabase.js";
 
 const rawPool = mysql.createPool({
     host: DB_HOST,
@@ -127,9 +127,8 @@ async function pingDatabase() {
         // Instantly release the connection slot back to the pool
         connection.release();
 
-        // Moved logic to hooks.server.js init() to ensure it runs before any requests are handled
         // 🚀 TRIGGER MIGRATIONS IMMEDIATELY UPON SUCCESSFUL CONNECTION PING
-        // await runMigrations();
+        await runMigrations();
 
     } catch (error) {
         // console.error('❌ [MySQL] CRITICAL: Connection failed on startup!');

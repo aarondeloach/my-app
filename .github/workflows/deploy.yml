@@ -1,4 +1,4 @@
-name: Node.js App Update and Deploy
+name: App Deployment Workflow
 
 on:
     push:
@@ -10,6 +10,10 @@ env:
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_PORT: ${{ secrets.DB_PORT }}
+  SETUP_ACCOUNT_TITLE: ${{ secrets.SETUP_ACCOUNT_TITLE }}
+  SETUP_USER_NAME: ${{ secrets.SETUP_USER_NAME }}
+  SETUP_USER_EMAIL: ${{ secrets.SETUP_USER_EMAIL }}
+  SETUP_USER_PASSWORD: ${{ secrets.SETUP_USER_PASSWORD }}
 
 jobs:
     build-and-test:
@@ -42,6 +46,10 @@ jobs:
                 DB_PASSWORD=$DB_PASSWORD
                 DB_NAME=$DB_NAME
                 DB_PORT=$DB_PORT
+                SETUP_ACCOUNT_TITLE=$SETUP_ACCOUNT_TITLE
+                SETUP_USER_NAME=$SETUP_USER_NAME
+                SETUP_USER_EMAIL=$SETUP_USER_EMAIL
+                SETUP_USER_PASSWORD=$SETUP_USER_PASSWORD
                 EOF
 
             - name: Build Application
@@ -58,7 +66,7 @@ jobs:
                   host: ${{ secrets.SERVER_HOST }}
                   username: ${{ secrets.SERVER_USER }}
                   key: ${{ secrets.SSH_PRIVATE_KEY }}
-                  envs: DB_HOST,DB_USER,DB_PASSWORD,DB_NAME,DB_PORT
+                  envs: DB_HOST,DB_USER,DB_PASSWORD,DB_NAME,DB_PORT,SETUP_ACCOUNT_TITLE,SETUP_USER_NAME,SETUP_USER_EMAIL,SETUP_USER_PASSWORD
                   script: |
                       cd my-app
                       git pull origin main
@@ -69,6 +77,10 @@ jobs:
                       DB_PASSWORD=$DB_PASSWORD
                       DB_NAME=$DB_NAME
                       DB_PORT=$DB_PORT
+                      SETUP_ACCOUNT_TITLE=$SETUP_ACCOUNT_TITLE
+                      SETUP_USER_NAME=$SETUP_USER_NAME
+                      SETUP_USER_EMAIL=$SETUP_USER_EMAIL
+                      SETUP_USER_PASSWORD=$SETUP_USER_PASSWORD
                       EOF
                       npm run build
                       pm2 restart my-app
