@@ -64,7 +64,7 @@ sudo dnf install nginx -y
 sudo nano /etc/nginx/nginx.conf
 ```
 
-**Add the following server block to the nginx.conf file:**
+**Replace the server block in the nginx.conf file:**
 
 Replace the existing server block with the following configuration. Make sure to update the `proxy_pass` directive to point to the correct port where your backend application is running (in this case, it's assumed to be running on port 3000).
 
@@ -138,9 +138,6 @@ cd my-app
 npm install
 npm run build
 ```
-
-
-
 
 **Use PM2 to manage the application:**
 
