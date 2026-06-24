@@ -32,6 +32,8 @@ export async function load({ locals }) {
         session: locals.session,
         dbStatus: await getDbStatus(),
         dbTables: await getDbTables(),
+        // geth the current environment variables for debugging purposes (excluding sensitive information)
+        processEnv: process.env.NODE_ENV, 
         //dbUsers: await db.execute("SELECT id, uuid, name, email, account_id, status, roles FROM users").then(([rows]) => rows || []),
         //dbAccounts: await db.execute("SELECT id, uuid, title FROM accounts").then(([rows]) => rows || []),
     };
