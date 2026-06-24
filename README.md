@@ -63,13 +63,16 @@ SETUP_USER_EMAIL=your_email_address
 SETUP_USER_PASSWORD=your_password
 ```
 
+>ℹ️ Quote values in the `.env.production` file if they contain special characters or spaces. For example, if your password is `P@ssw0rd!`, you should write it as `DB_PASSWORD="P@ssw0rd!"`, or if your name is `John Doe`, you should write it as `SETUP_USER_NAME="John Doe"`.
+
+
 ## Run the Application Locally
 
 ```bash
 npm run dev
 ```
 
-## First-Run Bootstrap (Account + User)
+**First-Run Bootstrap (Account + User)**
 
 On the first application startup, database migrations run and the first account and its first user are created from these environment variables:
 
@@ -77,21 +80,6 @@ On the first application startup, database migrations run and the first account 
 - `SETUP_USER_NAME` (optional, defaults to "Owner")
 - `SETUP_USER_EMAIL` (required)
 - `SETUP_USER_PASSWORD` (required)
-
-Behavior:
-
-- If no users exist and both required values are provided, bootstrap creates:
-	- a default account (`SETUP_ACCOUNT_TITLE`) if no account exists yet
-	- the first user (`SETUP_USER_NAME`) linked to that account
-- If users already exist, bootstrap is skipped.
-- If invalid setup variables are provided, startup fails with a configuration error.
-
-Notes:
-
-- Keep setup credentials in local environment only and do not commit them.
-- After first successful startup (once the first account and user are created), remove the `SETUP_*` environment variables from `.env.local`.
-- Add `SETUP_*` environment variables again only when bootstrapping a brand-new database with no users.
-
 
 
 ## My Infrastructure
