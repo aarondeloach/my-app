@@ -3,7 +3,12 @@ import path from "path";
 import { db } from "./index.js";
 import { hashPassword } from "$lib/server/auth/password";
 import {validateEmail} from "$lib/utils";
-import {SETUP_USER_EMAIL, SETUP_USER_PASSWORD, SETUP_ACCOUNT_TITLE, SETUP_USER_NAME} from "$env/static/private";
+import { env } from "$env/dynamic/private";
+
+const SETUP_USER_EMAIL = env.SETUP_USER_EMAIL;
+const SETUP_USER_PASSWORD = env.SETUP_USER_PASSWORD;
+const SETUP_ACCOUNT_TITLE = env.SETUP_ACCOUNT_TITLE;
+const SETUP_USER_NAME = env.SETUP_USER_NAME;
 
 const DEFAULT_ACCOUNT_TITLE = "Primary Account";
 const DEFAULT_USER_NAME = "Owner";
