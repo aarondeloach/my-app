@@ -13,9 +13,9 @@ Setup EC2 instance with `Amazon Linux 2023`.
 Under `Network settings`:
 
 - Create a new security group for the EC2 instance. This security group will control the inbound and outbound traffic to the instance.
-- Allow SSH traffic from your IP address only (for security reasons).
-- Allow HTTP traffic from anywhere (for public access to the application).
-- Allow HTTPS traffic from anywhere (for public access to the application).
+- Allow SSH traffic from anywhere for AWS instance connect or from your IP if you are using a different SSH client.
+- Allow HTTP traffic from anywhere
+- Allow HTTPS traffic from anywhere
 
 
 ## Create RDS Database
@@ -27,7 +27,7 @@ Create a new RDS database using MySQL. Select the `Full configuration` option. U
 - Self-managed credentials using a username and password that your codebase will use to connect to the database.
 - Under Connectivity, connect to the EC2 instance created above.
 - **No public access.** This means that the RDS instance will NOT be accessible from the internet, and can only be accessed from within the VPC (Virtual Private Cloud) where the EC2 instance is located. This locks down access to the database exclusively to your EC2 instance.
-- Create a new VPC security group for the new RDS instance. This keeps everything separate and organized.
+- Create a new VPC security group for the new RDS instance and let AWS name it. This keeps everything separate and organized.
 - ‼️ **Important:** Under `Additional configuration` options (not the storage additional  configuration), set the `initial database name`. If you do not specify a database name, Amazon RDS does not create a database when it creates the DB instance. You will be forced to either create a jump box, or delete the DB instance and start over. By specifying a database name during the RDS instance creation, you ensure that the database is created and ready for use immediately after the RDS instance is launched.
 
 **My Setup:** For compliance reasons, I keep the database private (no external access) and manage schema changes through app-run migrations. On first startup, the app creates required tables/columns, then applies new SQL files from `/lib/server/db/migrations` in order, tracking which migrations have already run.
@@ -37,7 +37,7 @@ Create a new RDS database using MySQL. Select the `Full configuration` option. U
 
 ## EC2 Instance Setup
 
->ℹ️ Connect to the EC2 instance using the `instance connect` option of the AWS EC2 management console. All commands below will be run in the AWS EC2 terminal session.
+>ℹ️ Connect to the EC2 instance using the `instance connect` option of the AWS EC2 management console, or your preferred SSH client. All commands below will be run in the AWS EC2 terminal session.
 
 **Update the system**
 
@@ -89,7 +89,19 @@ sudo dnf install nginx -y
 sudo nano /etc/nginx/nginx.conf
 ```
 
-**Replace the server block in the nginx.conf file:**
+Add the following line in the `server` block:
+
+```bash
+listen 3000;
+```
+
+If you want IPv6 support, add the following line in the `server` block:
+
+```bash
+listen [::]:3000;
+```
+
+<!-- **Replace the server block in the nginx.conf file:**
 
 Replace the existing server block with the following configuration. Make sure to update the `proxy_pass` directive to point to the correct port where your backend application is running (in this case, it's assumed to be running on port 3000).
 
@@ -109,7 +121,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
-```
+``` -->
 
 **Test the Nginx configuration:**
 
@@ -138,7 +150,7 @@ sudo ss -tlnp | grep :3000
 **Install PM2 globally:**
 
 ```bash
-sudo npm install pm2 -g
+npm install pm2 -g
 ```
 
 **Set up PM2 to start on system boot:**

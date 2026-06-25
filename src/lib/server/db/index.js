@@ -1,14 +1,15 @@
 import mysql from 'mysql2/promise';
 import { runMigrations } from './migrate.js';
-import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT } from '$env/static/private';
+import { env } from "$env/dynamic/private";
+
 import { logErrorToDatabase } from "$lib/server/db/queries/logErrorToDatabase.js";
 
 const rawPool = mysql.createPool({
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME,
-    port: Number(DB_PORT) || 3306,
+    host: env.DB_HOST,
+    user: env.DB_USER,
+    password: env.DB_PASSWORD,
+    database: env.DB_NAME,
+    port: Number(env.DB_PORT) || 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -114,7 +115,7 @@ wrapMethodWithStats('query');
  * This runs asynchronously right after the module is evaluated.
  */
 async function pingDatabase() {
-    console.log(`📡 [MySQL] Connecting to ${DB_HOST} / database: ${DB_NAME}...`);
+    console.log(`📡 [MySQL] Connecting to ${env.DB_HOST} / database: ${env.DB_NAME}...`);
     try {
         // Attempt to grab one quick connection from the pool
         const connection = await rawPool.getConnection();
