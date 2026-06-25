@@ -44,7 +44,7 @@ export async function load({ locals }) {
         session: locals.session,
 
 
-env:env.NODE_ENV,
+env: Object.keys(env),
 
         // dbStatus: await getDbStatus(),
         // dbTables: await getDbTables(),
