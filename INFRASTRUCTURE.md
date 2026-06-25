@@ -95,18 +95,19 @@ Replace the existing server block with the following configuration. Make sure to
 
 ```nginx
 server {
+    # 1. The server block listens on the public port (80)
     listen       80;
-    server_name  _; # Put your domain name here if you have one
+    listen       [::]:80;
+    server_name  _; 
 
+    # 2. The location block forwards that traffic to your Node app port (3000)
     location / {
-        proxy_pass http://127.0.0.1:3000; # The port where the backend application runs
+        proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
 ```
