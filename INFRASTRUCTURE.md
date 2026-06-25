@@ -148,6 +148,15 @@ npm install pm2 -g
 pm2 startup
 ```
 
+> ‼️ Be sure to run the `PATH` command that PM2 outputs after running `pm2 startup`. Otherwise, PM2 will not start on system boot.
+
+Lock in your configuration.
+
+```bash
+pm2 save
+```
+
+
 ### App Setup
 
 **Clone the app repository:**
