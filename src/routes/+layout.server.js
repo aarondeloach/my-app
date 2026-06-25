@@ -1,7 +1,7 @@
 // import { db } from "$lib/server/db";
 import {env } from "$env/dynamic/private";
 
-export async function load({ locals }) {
+export async function load({ locals, request, url }) {
     // Provide session from hooks.server.js to +layout.svelte (or any other component) via the `data.session` prop.
 
     // async function getCurrentEnvFile() {
@@ -46,6 +46,8 @@ export async function load({ locals }) {
 
 // envDynamic: Object.keys(envDynamic),
 env: Object.keys(env),
+
+requestHeaders: Object.fromEntries(request.headers.entries()),
 
         // dbStatus: await getDbStatus(),
         // dbTables: await getDbTables(),
