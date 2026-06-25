@@ -21,8 +21,9 @@ Create a new RDS database using MySQL. Select the `Full configuration` option. U
 
 - Self-managed credentials using a username and password that your codebase will use to connect to the database.
 - Under Connectivity, connect to the EC2 instance created above.
-- **No public access.** This means that the RDS instance will not be accessible from the internet, and can only be accessed from within the VPC (Virtual Private Cloud) where the EC2 instance is located. This locks down access to the database exclusively to your EC2 instance.
+- **No public access.** This means that the RDS instance will NOT be accessible from the internet, and can only be accessed from within the VPC (Virtual Private Cloud) where the EC2 instance is located. This locks down access to the database exclusively to your EC2 instance.
 - Create a new VPC security group for the new RDS instance. This keeps everything separate and organized.
+- ‼️ **Important:** Under `Additional configuration` options (not the storage additional  configuration), set the `initial database name`. If you do not specify a database name, Amazon RDS does not create a database when it creates the DB instance. You will be forced to either create a jump box, or delete the DB instance and start over. By specifying a database name during the RDS instance creation, you ensure that the database is created and ready for use immediately after the RDS instance is launched.
 
 **My Setup:** For compliance reasons, I keep the database private (no external access) and manage schema changes through app-run migrations. On first startup, the app creates required tables/columns, then applies new SQL files from `/lib/server/db/migrations` in order, tracking which migrations have already run.
 
