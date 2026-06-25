@@ -9,7 +9,7 @@ The application uses the `.github/workflows/deploy.yml` workflow to automaticall
 
 ## Manual App Deployment
 
-To manually deploy the application, pull the latest changes from the repository, rebuild the application:
+To manually deploy the application from the AWS EC2 instance terminal, pull the latest changes from the repository and rebuild the application:
 
 ```bash
 cd my-app
