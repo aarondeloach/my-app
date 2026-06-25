@@ -41,10 +41,14 @@ export async function load({ locals }) {
 
     return {
         session: locals.session,
-        // dbStatus: await getDbStatus(),
+
+
+
+
+        dbStatus: await getDbStatus(),
         // dbTables: await getDbTables(),
         // geth the current environment variables for debugging purposes (excluding sensitive information)
-        processEnv: process.env.NODE_ENV,
+        // processEnv: process.env.NODE_ENV,
         // activeEnvFileName: `.env.${process.env.NODE_ENV}`,
         // activeEnvFileExists: await import("fs/promises").then(({ access }) => access(`.env.${process.env.NODE_ENV}`).then(() => true).catch(() => false)),
         // activeEnvFileLength: (await getCurrentEnvFile())?.length || 0,
