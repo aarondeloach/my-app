@@ -10,7 +10,12 @@ Application infrastructure for a Node.js backend with a SvelteKit frontend, usin
 
 Setup EC2 instance with `Amazon Linux 2023`.
 
-Setup the security group to allow HTTP traffic on port 80 and SSH traffic on port 22. (Node runs on port 3000, but we will use Nginx to reverse proxy the traffic from port 80 to port 3000.)
+Under `Network settings`:
+
+- Create a new security group for the EC2 instance. This security group will control the inbound and outbound traffic to the instance.
+- Allow SSH traffic from your IP address only (for security reasons).
+- Allow HTTP traffic from anywhere (for public access to the application).
+- Allow HTTPS traffic from anywhere (for public access to the application).
 
 
 ## Create RDS Database
