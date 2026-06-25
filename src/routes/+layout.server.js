@@ -27,7 +27,7 @@ export async function load({ locals }) {
             console.error("Error fetching database status:", error);
             return {error: error.message};
         }
-    // }
+    }
 
     // async function getDbTables() {
     //     try {
