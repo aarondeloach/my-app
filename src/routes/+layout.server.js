@@ -1,4 +1,4 @@
-// import { db } from "$lib/server/db";
+import { db } from "$lib/server/db";
 
 export async function load({ locals }) {
     // Provide session from hooks.server.js to +layout.svelte (or any other component) via the `data.session` prop.
@@ -14,19 +14,19 @@ export async function load({ locals }) {
     //     }
     // }
 
-    // async function getDbStatus() {
-    //     try {
-    //         const status = await db.execute("SHOW STATUS WHERE Variable_name IN ('Uptime', 'Threads_connected', 'Threads_running', 'Max_used_connections')").then(([rows]) =>
-    //             rows.reduce((acc, row) => {
-    //                 acc[row.Variable_name] = row.Value;
-    //                 return acc;
-    //             }, {}),
-    //         );
-    //         return status;
-    //     } catch (error) {
-    //         console.error("Error fetching database status:", error);
-    //         return {error: error.message};
-    //     }
+    async function getDbStatus() {
+        try {
+            const status = await db.execute("SHOW STATUS WHERE Variable_name IN ('Uptime', 'Threads_connected', 'Threads_running', 'Max_used_connections')").then(([rows]) =>
+                rows.reduce((acc, row) => {
+                    acc[row.Variable_name] = row.Value;
+                    return acc;
+                }, {}),
+            );
+            return status;
+        } catch (error) {
+            console.error("Error fetching database status:", error);
+            return {error: error.message};
+        }
     // }
 
     // async function getDbTables() {
@@ -45,7 +45,7 @@ export async function load({ locals }) {
 
 
 
-        // dbStatus: await getDbStatus(),
+        dbStatus: await getDbStatus(),
         // dbTables: await getDbTables(),
         // geth the current environment variables for debugging purposes (excluding sensitive information)
         // processEnv: process.env.NODE_ENV,
