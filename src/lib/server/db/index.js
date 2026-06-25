@@ -123,7 +123,7 @@ async function pingDatabase() {
         // Run a lightweight baseline ping query
         await connection.ping();
         
-        // console.log('✅ [MySQL] Connection established successfully!');
+        console.log('✅ [MySQL] Connection established successfully!');
         
         // Instantly release the connection slot back to the pool
         connection.release();

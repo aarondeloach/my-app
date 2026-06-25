@@ -89,19 +89,7 @@ sudo dnf install nginx -y
 sudo nano /etc/nginx/nginx.conf
 ```
 
-Add the following line in the `server` block:
-
-```bash
-listen 3000;
-```
-
-If you want IPv6 support, add the following line in the `server` block:
-
-```bash
-listen [::]:3000;
-```
-
-<!-- **Replace the server block in the nginx.conf file:**
+**Replace the server block in the nginx.conf file:**
 
 Replace the existing server block with the following configuration. Make sure to update the `proxy_pass` directive to point to the correct port where your backend application is running (in this case, it's assumed to be running on port 3000).
 
@@ -121,7 +109,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
-``` -->
+```
 
 **Test the Nginx configuration:**
 
@@ -161,26 +149,32 @@ pm2 startup
 
 ### App Setup
 
-**Clone the app repository and build the application:**
+**Clone the app repository:**
 
 ```bash
 git clone https://github.com/aarondeloach/my-app
 cd my-app
-npm install
-npm run build
 ```
 
->ℹ️ Don't start the application yet. Setup the `.env.production` file first, then start the application using PM2.
-
-**Production environment setup:**
+>ℹ️ Don't install the application yet. Create the `.env.production` file first.
 
 **Generate your initial `.env.production` values:**
 
-Change the values below to match your RDS database and initial account/user setup.
-
+Create the `.env.production` file.
 
 ```bash
-cat > .env.production << 'EOF'
+touch .env.production
+```
+
+Open the file for editing.
+
+```bash
+nano .env.production
+```
+
+Copy and paste the following lines into the `.env.production` file, replacing the placeholder values with your actual database credentials and desired setup values.
+
+```bash
 DB_HOST=your_rds_endpoint
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
@@ -190,25 +184,42 @@ SETUP_ACCOUNT_TITLE=optional_account_title
 SETUP_USER_NAME=optional_user_name
 SETUP_USER_EMAIL=your_user_email
 SETUP_USER_PASSWORD=your_user_password
-EOF
 ```
 
 >ℹ️ Quote values in the `.env.production` file if they contain special characters or spaces. For example, if your password is `P@ssw0rd!`, you should write it as `DB_PASSWORD="P@ssw0rd!"`, or if your name is `John Doe`, you should write it as `SETUP_USER_NAME="John Doe"`.
 
-Note: `SETUP_*` variables are used to create the first account and its first user on the first application startup. After the first startup, these values are no longer used. They can be removed from the `.env.production` file during subsequent deployments if desired ([See DEPLOYMENT.md](DEPLOYMENT.md)).
+Save and exit the file.
 
-**Change the permissions of the `.env.production` file to be readable only by the owner:**
+**Install and build the application:**
 
 ```bash
-chmod 600 .env.production
+npm install
+npm run build
 ```
+
+Note: `SETUP_*` variables are used to create the first account and its first user on the first application startup. After the first startup, these values are no longer used.
+
+```bash
+sudo nano .env.production
+```
+
+Remove the following lines:
+
+```bash
+SETUP_ACCOUNT_TITLE=optional_account_title
+SETUP_USER_NAME=optional_user_name
+SETUP_USER_EMAIL=your_user_email
+SETUP_USER_PASSWORD=your_user_password
+```
+
+Save and exit the file.
 
 **Use PM2 to start the application:**
 
 Start your application using the --name flag to give it a clean, recognizable label in your process list.
 
 ```bash
-cd my-app
+cd my-app # if necessary
 pm2 start build/index.js --name "my-app"
 pm2 save
 ```
@@ -219,17 +230,7 @@ pm2 save
 pm2 list
 ```
 
-You should be able to access the application by visiting `http://[your-ec2-instance-ip]` in your web browser.
-
-**First-Run Bootstrap (Account + User)**
-
-On the first application startup, database migrations run and the first account and its first user are created from these environment variables:
-
-- `SETUP_ACCOUNT_TITLE` (optional, defaults to "Primary Account")
-- `SETUP_USER_NAME` (optional, defaults to "Owner")
-- `SETUP_USER_EMAIL` (required)
-- `SETUP_USER_PASSWORD` (required)
-
+You should be able to access the application by visiting `http://[your-ec2-instance-ip]:3000` in your web browser.
 
 
 ## Whats Next?

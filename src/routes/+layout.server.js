@@ -41,13 +41,13 @@ export async function load({ locals }) {
 
     return {
         session: locals.session,
-        dbStatus: await getDbStatus(),
-        dbTables: await getDbTables(),
+        // dbStatus: await getDbStatus(),
+        // dbTables: await getDbTables(),
         // geth the current environment variables for debugging purposes (excluding sensitive information)
         processEnv: process.env.NODE_ENV,
-        activeEnvFileName: `.env.${process.env.NODE_ENV}`,
-        activeEnvFileExists: await import("fs/promises").then(({ access }) => access(`.env.${process.env.NODE_ENV}`).then(() => true).catch(() => false)),
-        activeEnvFileLength: (await getCurrentEnvFile())?.length || 0,
+        // activeEnvFileName: `.env.${process.env.NODE_ENV}`,
+        // activeEnvFileExists: await import("fs/promises").then(({ access }) => access(`.env.${process.env.NODE_ENV}`).then(() => true).catch(() => false)),
+        // activeEnvFileLength: (await getCurrentEnvFile())?.length || 0,
         //dbUsers: await db.execute("SELECT id, uuid, name, email, account_id, status, roles FROM users").then(([rows]) => rows || []),
         //dbAccounts: await db.execute("SELECT id, uuid, title FROM accounts").then(([rows]) => rows || []),
     };

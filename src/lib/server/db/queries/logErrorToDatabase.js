@@ -2,6 +2,10 @@ import { dev } from "$app/environment";
 import { db } from "../index.js";
 
 export async function logErrorToDatabase(data) {
+
+
+
+
     const query = `
         INSERT INTO app_errors (id, environment, source, message, stack, url, method, user_agent, cause)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)

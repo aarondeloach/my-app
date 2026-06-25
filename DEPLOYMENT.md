@@ -14,21 +14,38 @@ To manually deploy the application, pull the latest changes from the repository,
 ```bash
 cd my-app
 git pull origin main
-npm install
-npm run build
 ```
 
-You'll have to reinitialize the `.env.production` file as it is not tracked in the repository. You can use the following command to generate the `.env.production` file with your secret environment variables:
+You'll have to create the `.env.production` file as it is not tracked in the repository.
 
-```base
-cat > .env.production << 'EOF'
+```bash
+touch .env.production
+```
+
+Open the file for editing.
+
+```bash
+nano .env.production
+```
+
+Copy and paste the following lines into the `.env.production` file, replacing the placeholder values with your actual database credentials and desired setup values.
+
+```bash
 DB_HOST=your_rds_endpoint
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
 DB_PORT=your_db_port
-EOF
 ```
+
+
+Install and build the application:
+
+```bash
+npm install
+npm run build
+```
+
 
 Then restart the application using PM2:
 
