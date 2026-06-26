@@ -1,4 +1,4 @@
-// import { db } from "$lib/server/db";
+import { db } from "$lib/server/db";
 import {env } from "$env/dynamic/private";
 
 export async function load({ locals, request, url }) {
