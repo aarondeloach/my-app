@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { db } from "./index.js";
 import { hashPassword } from "$lib/server/auth/password";
-import {validateEmail} from "$lib/utils";
+import { validateEmail } from "$lib/utils";
 import { env } from "$env/dynamic/private";
 
 const SETUP_USER_EMAIL = env.SETUP_USER_EMAIL;
@@ -154,9 +154,10 @@ export async function runMigrations() {
 
         console.log("🏁 Schema migration check complete. Database is up to date.");
     } catch (error) {
+        // Do not crash the server container entirely, but alert the engineer loudly
         console.error("❌ CRITICAL: Migration runner crashed!");
         console.error(error.message);
-        // Do not crash the server container entirely, but alert the engineer loudly
+        //todo: log error to database
     } finally {
         connection.release();
     }

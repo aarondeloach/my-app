@@ -3,9 +3,6 @@ import { db } from "../index.js";
 
 export async function logErrorToDatabase(data) {
 
-
-
-
     const query = `
         INSERT INTO app_errors (id, environment, source, message, stack, url, method, user_agent, cause)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -40,7 +37,7 @@ export async function logErrorToDatabase(data) {
             await db.execute(query, values);
         }
     } catch (dbError) {
-        // Fallback to standard console logging if your database is down
+        // Fallback to standard console logging if the database is down
         console.error("CRITICAL: Database logging failed!", dbError);
         console.error("Original Error:", data);
     }

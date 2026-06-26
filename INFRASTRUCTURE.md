@@ -184,6 +184,8 @@ nano .env.production
 
 Copy and paste the following lines into the `.env.production` file, replacing the placeholder values with your actual database credentials and desired setup values.
 
+> ℹ️ The `DB_HOST` value should be the endpoint of your RDS instance. You can find this in the AWS RDS console under the "Connectivity & security" section of your RDS instance details.
+
 ```bash
 DB_HOST=your_rds_endpoint
 DB_USER=your_db_user

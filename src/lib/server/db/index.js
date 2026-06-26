@@ -50,6 +50,7 @@ function reportQueryStats(sqlString, values, durationMs, result) {
     
     if (durationMs > 100) {
         console.warn(`⚠️  WARNING: Slow query detected (>100ms)`);
+        // todo: error log slow queries for analysis
     }
     // console.log('--------------------------------------------------');
 }
@@ -132,22 +133,10 @@ async function pingDatabase() {
         await runMigrations();
 
     } catch (error) {
-        // console.error('❌ [MySQL] CRITICAL: Connection failed on startup!');
-        // console.error(`Reason:  ${error.message}`);
-        // console.error(`Code:    ${error.code} (${error.errno})`);
-        // console.error('--------------------------------------------------');
-
-            const errorMessage = error instanceof Error ? error.message : String(error);
-            const errorStack = error instanceof Error ? error.stack : null;
-
-            logErrorToDatabase({
-                source: 'database',
-                message: errorMessage,
-                stack: errorStack,
-                url: null,
-                method: null,
-                userAgent: null
-            });
+        console.error('❌ [MySQL] CRITICAL: Connection failed on startup!');
+        console.error(`Reason:  ${error.message}`);
+        console.error(`Code:    ${error.code} (${error.errno})`);
+        console.error('--------------------------------------------------');
     }
 }
 
