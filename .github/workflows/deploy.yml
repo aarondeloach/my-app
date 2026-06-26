@@ -61,11 +61,11 @@ jobs:
                 async function test() {
                   try {
                     const conn = await mysql.createConnection({
-                      host: ${{ secrets.DB_HOST }},
-                      user: ${{ secrets.DB_USER }},
-                      password: ${{ secrets.DB_PASSWORD }},
-                      database: ${{ secrets.DB_NAME }},
-                      port: ${{ secrets.DB_PORT }},
+                      host: `${{ secrets.DB_HOST }}`,
+                      user: `${{ secrets.DB_USER }}`,
+                      password: `${{ secrets.DB_PASSWORD }}`,
+                      database: `${{ secrets.DB_NAME }}`,
+                      port: `${{ secrets.DB_PORT }}`,
                       connectTimeout: 5000,
                       connectionLimit: 2,
                       waitForConnections: true,
