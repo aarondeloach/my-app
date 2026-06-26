@@ -15,20 +15,20 @@ export async function load({ locals, request, url }) {
     //     }
     // }
 
-    // async function getDbStatus() {
-    //     try {
-    //         const status = await db.execute("SHOW STATUS WHERE Variable_name IN ('Uptime', 'Threads_connected', 'Threads_running', 'Max_used_connections')").then(([rows]) =>
-    //             rows.reduce((acc, row) => {
-    //                 acc[row.Variable_name] = row.Value;
-    //                 return acc;
-    //             }, {}),
-    //         );
-    //         return status;
-    //     } catch (error) {
-    //         console.error("Error fetching database status:", error);
-    //         return {error: error.message};
-    //     }
-    // }
+    async function getDbStatus() {
+        try {
+            const status = await db.execute("SHOW STATUS WHERE Variable_name IN ('Uptime', 'Threads_connected', 'Threads_running', 'Max_used_connections')").then(([rows]) =>
+                rows.reduce((acc, row) => {
+                    acc[row.Variable_name] = row.Value;
+                    return acc;
+                }, {}),
+            );
+            return status;
+        } catch (error) {
+            console.error("Error fetching database status:", error);
+            return {error: error.message};
+        }
+    }
 
     // async function getDbTables() {
     //     try {
@@ -45,11 +45,11 @@ export async function load({ locals, request, url }) {
 
 
 // envDynamic: Object.keys(envDynamic),
-env: Object.keys(env),
+// env: Object.keys(env),
 
-requestHeaders: Object.fromEntries(request.headers.entries()),
+// requestHeaders: Object.fromEntries(request.headers.entries()),
 
-        // dbStatus: await getDbStatus(),
+        dbStatus: await getDbStatus(),
         // dbTables: await getDbTables(),
         // geth the current environment variables for debugging purposes (excluding sensitive information)
         // processEnv: process.env.NODE_ENV,
