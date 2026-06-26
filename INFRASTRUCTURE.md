@@ -11,7 +11,7 @@ Setup [EC2](https://aws.amazon.com/ec2/) instance using `Amazon Linux 2023`.
 Under `Network settings`:
 
 - Create a new security group for the EC2 instance. This security group will control the inbound and outbound traffic to the instance.
-- Allow SSH traffic from anywhere. GitHub Actions will also use this to connect to the EC2 instance during deployment
+- Allow SSH traffic from anywhere (GitHub, AWS Console, and your IDE will all need to connect to the EC2 instance via SSH)
 - Allow HTTP traffic from anywhere (Remove this access once HTTPS is setup)
 - Allow HTTPS traffic from anywhere
 
