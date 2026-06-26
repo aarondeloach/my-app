@@ -53,6 +53,7 @@ jobs:
                 DB_USER: ${{ secrets.DB_USER }}
                 DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
                 DB_NAME: ${{ secrets.DB_NAME }}
+                DB_PORT: ${{ secrets.DB_PORT }}
               # Runs a lightweight, isolated query. If it throws, Node exits with code 1.
               run: |
                 node -e "
@@ -60,11 +61,14 @@ jobs:
                 async function test() {
                   try {
                     const conn = await mysql.createConnection({
-                      host: process.env.DB_HOST,
-                      user: process.env.DB_USER,
-                      password: process.env.DB_PASSWORD,
-                      database: process.env.DB_NAME,
-                      connectTimeout: 5000
+                      host: ${{ secrets.DB_HOST }},
+                      user: ${{ secrets.DB_USER }},
+                      password: ${{ secrets.DB_PASSWORD }},
+                      database: ${{ secrets.DB_NAME }},
+                      port: ${{ secrets.DB_PORT }},
+                      connectTimeout: 5000,
+                      connectionLimit: 2,
+                      waitForConnections: true,
                     });
                     await conn.query('SELECT 1');
                     await conn.end();
