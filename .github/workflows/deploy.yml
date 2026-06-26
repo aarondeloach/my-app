@@ -31,9 +31,6 @@ jobs:
             - name: Run Linter
               run: npm run lint --if-present
 
-            - name: Execute Tests
-              run: npm test --if-present
-
             - name: Generate .env File
               run: |
                   cat > .env.production << EOF
@@ -43,6 +40,9 @@ jobs:
                   DB_NAME=$DB_NAME
                   DB_PORT=$DB_PORT
                   EOF
+
+            - name: Execute Tests
+              run: npm test --if-present
 
             - name: Build Application
               run: npm run build --if-present

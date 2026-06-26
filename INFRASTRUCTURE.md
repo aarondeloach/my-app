@@ -156,6 +156,21 @@ Lock in your configuration.
 pm2 save
 ```
 
+**Critical** create a new `ecosystem.config.cjs` file in the root of the project with the following content:
+
+```javascript
+module.exports = {
+    apps: [
+        {
+            name: "my-app",
+            script: "build/index.js",
+            node_args: "--env-file=.env.production",
+        },
+    ],
+};
+
+
+
 
 ### App Setup
 

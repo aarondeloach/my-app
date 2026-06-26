@@ -137,6 +137,8 @@ async function pingDatabase() {
         console.error(`Reason:  ${error.message}`);
         console.error(`Code:    ${error.code} (${error.errno})`);
         console.error('--------------------------------------------------');
+        console.error('Exiting the process to prevent further issues.');
+        process.exit(1);
     }
 }
 

@@ -22,7 +22,7 @@ export async function logErrorToDatabase(data) {
 
     try {
         if (dev) {
-            console.error("Error:", {
+            console.error("Logging development environment error:", {
                 id: values[0],
                 environment: values[1],
                 source: values[2],
@@ -34,6 +34,7 @@ export async function logErrorToDatabase(data) {
                 cause: values[8]
             });
         } else {
+
             await db.execute(query, values);
         }
     } catch (dbError) {
