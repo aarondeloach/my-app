@@ -52,7 +52,7 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Deploy Update to Server via SSH
+            - name: Update EC2 via SSH
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.SERVER_HOST }} 

@@ -1,6 +1,6 @@
 # My Infrastructure Setup
 
-I'm compelled by my industry to utilize an infrastructure with a strong security focus. The [Node](https://nodejs.org/) backend runs on an [EC2](https://aws.amazon.com/ec2/) instance that strictly permits HTTPS traffic and is securely managed via the AWS EC2 Instance Connect console. To ensure data isolation, the [RDS](https://aws.amazon.com/rds/) MySQL database is _completely_ private with no external access, and all updates are handled exclusively through application-run migrations.
+I'm compelled by my industry to utilize an infrastructure with a strong security focus. The [Node](https://nodejs.org/) backend runs on an [EC2](https://aws.amazon.com/ec2/) instance that strictly permits HTTPS traffic and is securely managed via SSH or the AWS EC2 Instance Connect console. To ensure data isolation, the [RDS](https://aws.amazon.com/rds/) MySQL database is _completely_ private with no external access, and all updates are handled exclusively through application-run migrations.
 
 >⚠️ To build this specific application infrastructure (while maintaining your sanity), complete the following steps in sequence.
 
@@ -11,6 +11,7 @@ Setup [EC2](https://aws.amazon.com/ec2/) instance using `Amazon Linux 2023`.
 Under `Network settings`:
 
 - Create a new security group for the EC2 instance. This security group will control the inbound and outbound traffic to the instance.
+- Allow SSH traffic from anywhere. GitHub Actions will also use this to connect to the EC2 instance during deployment
 - Allow HTTP traffic from anywhere (Remove this access once HTTPS is setup)
 - Allow HTTPS traffic from anywhere
 
