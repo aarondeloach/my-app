@@ -1,6 +1,8 @@
-# My App Deployment Strategy
+# My App Deployment Setup
 
-## GitHub Actions Deployment
+I use [GitHub Actions](https://github.com/features/actions) to automatically deploy the application to the EC2 instance whenever changes are pushed to the `main` branch of the repository.
+
+## GitHub Actions Setup
 
 If you haven't already done so, create a repository on GitHub and push your local code to the repository.
 
@@ -17,7 +19,7 @@ Provide the following information in your repository's settings under "Secrets a
 | `DB_NAME` | The initial database created during the RDS instance setup (e.g., `my_app_db`) |
 | `DB_PORT` | The port number for your MySQL database (usually 3306) |
 
-The application uses the `.github/workflows/deploy.yml` workflow to automatically deploy the application to an AWS EC2 instance whenever changes are pushed to the `main` branch of the repository. In order for this to work, you will need to set up the following GitHub secrets in your repository:
+> ℹ️ These settings are baked into the application's `.github/workflows/deploy.yml` workflow and will work without any additional configuration.
 
 
 ## Manual App Deployment
@@ -36,3 +38,5 @@ Then restart the application using PM2:
 ```bash
 pm2 restart my-app
 ```
+
+>⚠️ The `.env.production` file is already present on the EC2 instance because it was created during the initial setup of the application. If you need to update any environment variables, edit the `.env.production` file and restart the application using PM2.

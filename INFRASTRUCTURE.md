@@ -1,20 +1,17 @@
-# My App Infrastructure
+# My Infrastructure Setup
 
-Application infrastructure for a Node.js backend with a SvelteKit frontend, using MySQL as the database.
+I'm compelled by my industry to utilize an infrastructure with a strong security focus. The [Node](https://nodejs.org/) backend runs on an [EC2](https://aws.amazon.com/ec2/) instance that strictly permits HTTPS traffic and is securely managed via the AWS EC2 Instance Connect console. To ensure data isolation, the [RDS](https://aws.amazon.com/rds/) MySQL database is _completely_ private with no external access, and all updates are handled exclusively through application-run migrations.
 
->⚠️ Perform the following in the order listed to set up the infrastructure for the application.
+>⚠️ To build this specific application infrastructure (while maintaining your sanity), complete the following steps in sequence.
 
-## Create EC2 Instance
+## Create an EC2 Instance
 
-[EC2](https://aws.amazon.com/ec2/) (Elastic Compute Cloud) is a web service that provides resizable compute capacity in the cloud. It allows you to run virtual servers in the cloud, which can be used to host applications and services.
-
-Setup EC2 instance with `Amazon Linux 2023`.
+Setup [EC2](https://aws.amazon.com/ec2/) instance using `Amazon Linux 2023`.
 
 Under `Network settings`:
 
 - Create a new security group for the EC2 instance. This security group will control the inbound and outbound traffic to the instance.
-- Allow SSH traffic from anywhere for AWS instance connect or from your IP if you are using a different SSH client.
-- Allow HTTP traffic from anywhere
+- Allow HTTP traffic from anywhere (Remove this access once HTTPS is setup)
 - Allow HTTPS traffic from anywhere
 
 
@@ -259,13 +256,11 @@ pm2 list
 
 You should be able to access the application by visiting `http://[your-ec2-instance-ip]:3000` in your web browser.
 
-
 ## Whats Next?
 
-Setup a certificate for HTTPS using [Let's Encrypt](https://letsencrypt.org/) and [Certbot](https://certbot.eff.org/). See [this guide](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04) for instructions on how to set up HTTPS with Nginx and Certbot.
+Setup your application deployment. I use [GitHub Actions](https://github.com/features/actions) to automatically deploy the application to the EC2 instance whenever changes are pushed to the `main` branch of the repository. [See my deployment strategy](DEPLOYMENT.md) for detailed information on how to set this up.
+
+Setup a certificate for HTTPS using [Let's Encrypt](https://letsencrypt.org/) and [Certbot](https://certbot.eff.org/). See [this guide](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04) for instructions on how to set up HTTPS with Nginx and Certbot. (Remember to delete the HTTP access rule from the EC2 security group after HTTPS is setup.)
 
 Create a domain name and point it to your EC2 instance's public IP address. This will allow you to access your application using a custom domain name instead of the EC2 instance's public IP address.
 
-Create a new GitHub repository for the application and push your local code to the repository. See [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on deploying the application.
-
-Setup the application deployment strategy by following the instructions in [DEPLOYMENT.md](DEPLOYMENT.md).
