@@ -15,6 +15,12 @@ jobs:
     build-and-test:
         runs-on: ubuntu-latest
 
+        env:
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+
         steps:
             - name: Checkout Source Code
               uses: actions/checkout@v4
@@ -48,12 +54,6 @@ jobs:
               run: npm run build --if-present
 
             - name: Verify Live Database Connection
-              env:
-                DB_HOST: ${{ secrets.DB_HOST }}
-                DB_USER: ${{ secrets.DB_USER }}
-                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-                DB_NAME: ${{ secrets.DB_NAME }}
-                DB_PORT: ${{ secrets.DB_PORT }}
               # Runs a lightweight, isolated query. If it throws, Node exits with code 1.
               run: |
                 node -e "
@@ -61,11 +61,11 @@ jobs:
                 async function test() {
                   try {
                     const conn = await mysql.createConnection({
-                      host: $DB_HOST,
-                      user: $DB_USER,
-                      password: $DB_PASSWORD,
-                      database: $DB_NAME,
-                      port: $DB_PORT,
+                      host: process.env.DB_HOST,
+                      user: process.env.DB_USER,
+                      password: process.env.DB_PASSWORD,
+                      database: process.env.DB_NAME,
+                      port: process.env.DB_PORT,
                       connectTimeout: 5000,
                       connectionLimit: 2,
                       waitForConnections: true,
