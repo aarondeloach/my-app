@@ -169,7 +169,7 @@ module.exports = {
     ],
 };
 
-
+> ‼️ I wish there was another way to do this, but PM2 does not read `.env` files directly. The only way to pass environment variables to node through the PM2 startup process is through the `--env-file` flag in the `ecosystem.config.cjs` file. This is a known issue with PM2 and there is no workaround at this time.
 
 
 ### App Setup
