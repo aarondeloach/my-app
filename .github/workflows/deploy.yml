@@ -47,6 +47,35 @@ jobs:
             - name: Build Application
               run: npm run build --if-present
 
+            - name: Verify Live Database Connection
+              env:
+                DB_HOST: ${{ secrets.DB_HOST }}
+                DB_USER: ${{ secrets.DB_USER }}
+                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+                DB_NAME: ${{ secrets.DB_NAME }}
+              # Runs a lightweight, isolated query. If it throws, Node exits with code 1.
+              run: |
+                node -e "
+                const mysql = require('mysql2/promise');
+                async function test() {
+                  try {
+                    const conn = await mysql.createConnection({
+                      host: process.env.DB_HOST,
+                      user: process.env.DB_USER,
+                      password: process.env.DB_PASSWORD,
+                      database: process.env.DB_NAME,
+                      connectTimeout: 5000
+                    });
+                    await conn.query('SELECT 1');
+                    await conn.end();
+                    console.log('Database verification passed.');
+                  } catch (err) {
+                    console.error('Database verification failed:', err.message);
+                    process.exit(1);
+                  }
+                }
+                test();
+                "
     deploy:
         needs: build-and-test
         runs-on: ubuntu-latest
