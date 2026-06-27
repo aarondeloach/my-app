@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { db } from "./index.js";
-import { hashPassword } from "$lib/server/auth/password";
-import { validateEmail } from "$lib/utils";
+import { validateEmail, hashPassword } from "$lib/utils";
 import { env } from "$env/dynamic/private";
 
 const SETUP_USER_EMAIL = env.SETUP_USER_EMAIL;
