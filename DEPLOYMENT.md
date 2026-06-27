@@ -2,6 +2,8 @@
 
 I use [GitHub Actions](https://github.com/features/actions) to automatically deploy the application to the EC2 instance whenever changes are pushed to the `main` branch of the repository.
 
+>‼️ The GitHub Actions workflow can report a false success. Because the runner cannot connect directly to the database, the workflow will succeed even if the database connection fails.
+
 ## GitHub Actions Setup
 
 If you haven't already done so, create a repository on GitHub and push your local code to the repository.
