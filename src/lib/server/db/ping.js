@@ -2,6 +2,7 @@
  * Pings the database to verify credentials and network availability.
  * Use this for startup checks or health monitoring. If the ping fails,
  * the process will exit with a non-zero status code.
+ * e.g., "postbuild": "node src/lib/server/db/ping.js",
  */
 
 import mysql from "mysql2/promise";
@@ -25,8 +26,6 @@ async function ping() {
 
     console.log(`📡 [Ping] Connecting to ${process.env.DB_HOST} / database: ${process.env.DB_NAME}...`);
     try {
-        // const connection = await rawPool.getConnection();
-
         const connection = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,

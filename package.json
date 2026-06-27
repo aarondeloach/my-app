@@ -6,7 +6,6 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"postbuild": "node src/lib/server/db/ping.js",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''"
 	},
